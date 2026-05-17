@@ -1,0 +1,52 @@
+# ──────────────────────────────────────────────
+#  .gitignore — Belgium Real Estate Portfolio
+#  Rename this file to exactly: .gitignore
+#  (remove the .txt extension before uploading)
+# ──────────────────────────────────────────────
+
+# Raw source data — never commit original data files
+Belgium_real_estate_market.csv
+
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Python virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*.ipynb
+
+# OS-generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Editor / IDE folders
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary and log files
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Excel working files
+~$*.xlsx
+~$*.xls
