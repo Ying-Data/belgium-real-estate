@@ -92,10 +92,8 @@ A4 print-ready, 3-page report with:
 
 **Print settings:** Margins → None · Scale → 100% · Background graphics → ON
 
-### 3. Power BI Tutorial (`belgium_re_powerbi_tutorial.html`)
-Step-by-step guide to building the 3-page dashboard in Power BI Desktop (November 2023 update). Covers: data import, type setting, DAX measures, all visual types, canvas backgrounds, and slicers. Every visual has numbered steps with exact field well configurations and hex colour codes.
 
-### 4. Power BI Export (`belgium_re_powerbi_export.csv`)
+### 3. Power BI Export (`belgium_re_powerbi_export.csv`)
 Cleaned, feature-engineered dataset produced by the pipeline. This is **not raw data** — it includes derived columns:
 
 | Column | Description |
@@ -107,7 +105,7 @@ Cleaned, feature-engineered dataset produced by the pipeline. This is **not raw 
 | `kitchen_score` | Ordinal: 0 (not installed) → 3 (hyper equipped) |
 | `building_score` | Ordinal: 0 (to restore) → 5 (as new) |
 
-### 5. Feature Importance (`belgium_re_feature_importance.csv`)
+### 4. Feature Importance (`belgium_re_feature_importance.csv`)
 Random Forest feature importances for the 12 model inputs. Use as data source for a bar chart in the methodology section of the Power BI report.
 
 ---
