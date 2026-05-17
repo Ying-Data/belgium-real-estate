@@ -38,10 +38,8 @@ This repository uses a **flat folder structure** — all deliverable files are i
 
 ```
 /
-├── belgium_re_pipeline.py              # Python pipeline: cleaning → EDA → ML → exports
+├── belgium_re_pipeline.py             # Python pipeline: cleaning → EDA → ML → exports
 ├── belgium_re_executive_report.html   # A4 executive report (3 pages, print-ready)
-├── belgium_re_powerbi_tutorial.html   # Step-by-step Power BI build guide
-├── belgium_re_github_guide.html       # GitHub publishing walkthrough (web UI)
 ├── belgium_re_powerbi_export.csv      # Cleaned, enriched Power BI-ready dataset
 ├── belgium_re_feature_importance.csv  # ML feature importance scores
 ├── README.md                          # This file
@@ -152,19 +150,6 @@ R² of 0,635 means the model explains 63,5% of price variation using publicly ob
 | Resale price | € 439.000 | From data (Flanders AS_NEW median) |
 | **Net profit** | **€ 38.325** | |
 | **ROI** | **9,6%** | |
-
----
-
-## Colour Palette
-
-| Role | Hex |
-|---|---|
-| Primary (Navy) | `#1B2A4A` |
-| Accent (Gold) | `#C8922A` |
-| Secondary (Teal) | `#2E7D8C` |
-| Positive (Green) | `#2E7D52` |
-| Alert (Red) | `#C0392B` |
-| Background | `#F5F4F0` |
 
 ---
 
