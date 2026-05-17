@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Belgium Real Estate — Executive Report</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap');
+
+  :root {
+    --navy:   #1B2A4A;
+    --gold:   #C8922A;
+    --teal:   #2E7D8C;
+    --green:  #2E7D52;
+    --red:    #C0392B;
+    --offwhite: #F5F4F0;
+    --charcoal: #2C2C2C;
+    --light-gold: #F0E6D0;
+    --mid-grey: #8A8A8A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: #E8E6E1;
+    color: var(--charcoal);
+    font-size: 11pt;
+    line-height: 1.55;
+  }
+
+  /* ── PAGE WRAPPER ── */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 12mm auto;
+    background: var(--offwhite);
+    box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+
+  /* ══════════════════════════════════════════════════
+     PAGE 1 — COVER
+  ══════════════════════════════════════════════════ */
+  .cover {
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    min-height: 297mm;
+  }
+
+  .cover-geo-strip {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--teal) 50%, var(--green) 100%);
+  }
+
+  .cover-header {
+    padding: 52px 52px 0 52px;
+    flex: 0 0 auto;
+  }
+
+  .cover-eyebrow {
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    font-size: 8.5pt;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 36pt;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 1.12;
+    margin-bottom: 8px;
+  }
+
+  .cover-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 15pt;
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 36px;
+  }
+
+  .cover-divider {
+    width: 60px;
+    height: 3px;
+    background: var(--gold);
+    margin-bottom: 36px;
+  }
+
+  .cover-meta {
+    font-size: 8.5pt;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1px;
+  }
+
+  /* KPI grid */
+  .kpi-section {
+    padding: 44px 52px;
+    flex: 1;
+  }
+
+  .kpi-label-row {
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    font-size: 8pt;
+    letter-spacing: 2.5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .kpi-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(200,146,42,0.25);
+    border-left: 4px solid var(--gold);
+    border-radius: 2px;
+    padding: 22px 20px 18px 20px;
+    position: relative;
+  }
+
+  .kpi-card.teal  { border-left-color: var(--teal);  }
+  .kpi-card.green { border-left-color: var(--green); }
+  .kpi-card.red   { border-left-color: #E8854A;      }
+
+  .kpi-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 26pt;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .kpi-card.teal  .kpi-number { color: #7ECFDA; }
+  .kpi-card.green .kpi-number { color: #7ECBA0; }
+  .kpi-card.red   .kpi-number { color: #F0A882; }
+
+  .kpi-title {
+    font-size: 8pt;
+    font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .kpi-description {
+    font-size: 8.5pt;
+    color: rgba(255,255,255,0.38);
+    line-height: 1.4;
+  }
+
+  .kpi-footnote {
+    font-size: 7pt;
+    color: rgba(255,255,255,0.28);
+    margin-top: 8px;
+    font-style: italic;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 6px;
+  }
+
+  /* Map decoration */
+  .cover-map-area {
+    padding: 0 52px 32px 52px;
+  }
+
+  .region-bars {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    margin-top: 32px;
+  }
+
+  .region-bar-wrap {
+    flex: 1;
+    text-align: center;
+  }
+
+  .region-bar-label {
+    font-size: 7pt;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  .region-bar-track {
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+    height: 40px;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .region-bar-fill {
+    width: 100%;
+    border-radius: 2px 2px 0 0;
+    transition: height 0.3s;
+  }
+
+  .region-bar-val {
+    font-size: 8pt;
+    color: rgba(255,255,255,0.55);
+    margin-top: 6px;
+    font-weight: 600;
+  }
+
+  .cover-footer {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 16px 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cover-footer-left {
+    font-size: 7.5pt;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .cover-footer-right {
+    font-size: 7.5pt;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ══════════════════════════════════════════════════
+     PAGE 2 — EXECUTIVE SUMMARY
+  ══════════════════════════════════════════════════ */
+  .summary-page {
+    background: var(--offwhite);
+    display: flex;
+    flex-direction: column;
+    min-height: 297mm;
+  }
+
+  .page-header-bar {
+    background: var(--navy);
+    padding: 24px 48px 20px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .page-header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 14pt;
+    font-weight: 600;
+    color: #FFFFFF;
+  }
+
+  .page-header-sub {
+    font-size: 7.5pt;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .page-num {
+    font-size: 8pt;
+    color: rgba(255,255,255,0.3);
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
+  .gold-rule {
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+  }
+
+  .page-body {
+    padding: 36px 48px;
+    flex: 1;
+  }
+
+  .section-eyebrow {
+    font-size: 7.5pt;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 15pt;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: 9.5pt;
+    line-height: 1.65;
+    color: var(--charcoal);
+    margin-bottom: 12px;
+  }
+
+  .highlight-box {
+    background: var(--navy);
+    border-left: 4px solid var(--gold);
+    padding: 14px 18px;
+    margin: 18px 0;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .highlight-box p {
+    color: rgba(255,255,255,0.85);
+    margin: 0;
+    font-size: 9pt;
+    line-height: 1.55;
+  }
+
+  .finding-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .finding-card {
+    border: 1px solid #D8D4CC;
+    border-top: 3px solid var(--navy);
+    padding: 14px 16px;
+    background: #FFFFFF;
+    border-radius: 0 0 2px 2px;
+  }
+
+  .finding-card.gold-top  { border-top-color: var(--gold);  }
+  .finding-card.teal-top  { border-top-color: var(--teal);  }
+  .finding-card.green-top { border-top-color: var(--green); }
+
+  .finding-stat {
+    font-family: 'Playfair Display', serif;
+    font-size: 20pt;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .finding-stat.gold  { color: var(--gold);  }
+  .finding-stat.teal  { color: var(--teal);  }
+  .finding-stat.green { color: var(--green); }
+
+  .finding-label {
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: var(--mid-grey);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .finding-text {
+    font-size: 8.5pt;
+    color: var(--charcoal);
+    line-height: 1.5;
+  }
+
+  .rec-block {
+    margin: 14px 0;
+    padding: 14px 18px;
+    background: #FFFFFF;
+    border: 1px solid #D8D4CC;
+    border-left: 4px solid var(--teal);
+    border-radius: 0 2px 2px 0;
+  }
+
+  .rec-block.gold-left  { border-left-color: var(--gold);  }
+  .rec-block.green-left { border-left-color: var(--green); }
+
+  .rec-title {
+    font-weight: 600;
+    font-size: 9pt;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .rec-impact {
+    display: inline-block;
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: var(--green);
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+  }
+
+  .rec-text {
+    font-size: 8.5pt;
+    color: #555;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  hr.section-rule {
+    border: none;
+    border-top: 1px solid #D8D4CC;
+    margin: 24px 0;
+  }
+
+  /* ══════════════════════════════════════════════════
+     PAGE 3 — METHODOLOGY
+  ══════════════════════════════════════════════════ */
+  .method-page {
+    background: var(--offwhite);
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .method-body {
+    padding: 28px 48px;
+    flex: 1;
+  }
+
+  .method-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 11.5pt;
+    font-weight: 600;
+    color: var(--navy);
+    margin: 18px 0 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 2px solid var(--gold);
+  }
+
+  table.dq-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8pt;
+    margin-bottom: 14px;
+  }
+
+  table.dq-table th {
+    background: var(--navy);
+    color: #FFFFFF;
+    padding: 7px 9px;
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    font-size: 7.5pt;
+  }
+
+  table.dq-table td {
+    padding: 6px 9px;
+    border-bottom: 1px solid #D8D4CC;
+    vertical-align: top;
+    line-height: 1.45;
+  }
+
+  table.dq-table tr:nth-child(even) td {
+    background: rgba(27,42,74,0.04);
+  }
+
+  .tag-from-data {
+    display: inline-block;
+    background: #D4EDDA;
+    color: #1A5C30;
+    font-size: 6.5pt;
+    font-weight: 600;
+    padding: 1px 5px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+    margin-right: 4px;
+  }
+
+  .tag-assumed {
+    display: inline-block;
+    background: #FFF3CD;
+    color: #7D5A00;
+    font-size: 6.5pt;
+    font-weight: 600;
+    padding: 1px 5px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+    margin-right: 4px;
+  }
+
+  .fi-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    gap: 10px;
+  }
+
+  .fi-label {
+    font-size: 8pt;
+    width: 130px;
+    flex-shrink: 0;
+    color: var(--charcoal);
+  }
+
+  .fi-bar-track {
+    flex: 1;
+    background: #E0DDD8;
+    border-radius: 2px;
+    height: 10px;
+    overflow: hidden;
+  }
+
+  .fi-bar-fill {
+    height: 100%;
+    background: var(--navy);
+    border-radius: 2px;
+  }
+
+  .fi-val {
+    font-size: 8pt;
+    width: 38px;
+    text-align: right;
+    color: var(--mid-grey);
+    flex-shrink: 0;
+  }
+
+  .print-note {
+    margin-top: 20px;
+    padding: 10px 14px;
+    background: var(--light-gold);
+    border: 1px solid var(--gold);
+    border-radius: 2px;
+    font-size: 7.5pt;
+    color: #6B4800;
+  }
+
+  .page-footer {
+    border-top: 1px solid #D0CCCA;
+    padding: 12px 48px;
+    display: flex;
+    justify-content: space-between;
+    background: #ECEAE5;
+  }
+
+  .page-footer span {
+    font-size: 7pt;
+    color: var(--mid-grey);
+    letter-spacing: 0.5px;
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: none; }
+    .page { margin: 0; box-shadow: none; }
+    @page { size: A4; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGE 1 — COVER
+════════════════════════════════════════════════════════ -->
+<div class="page cover">
+  <div class="cover-geo-strip"></div>
+
+  <div class="cover-header">
+    <div class="cover-eyebrow">Portfolio Project · Belgium Real Estate Market Analysis</div>
+    <div class="cover-title">Property<br>Valuation<br>Intelligence</div>
+    <div class="cover-subtitle">Belgian Residential Market · 2024</div>
+    <div class="cover-divider"></div>
+    <div class="cover-meta">15.254 LISTINGS · 3 REGIONS · 11 PROVINCES · IMMOWEB DATA</div>
+  </div>
+
+  <div class="kpi-section">
+    <div class="kpi-label-row">Key Performance Indicators</div>
+    <div class="kpi-grid">
+
+      <div class="kpi-card">
+        <div class="kpi-title">National Median Listing Price</div>
+        <div class="kpi-number">€ 353.750</div>
+        <div class="kpi-description">Median asking price across all 15.254 validated residential listings in Belgium after quality screening.</div>
+      </div>
+
+      <div class="kpi-card teal">
+        <div class="kpi-title">Brussels Premium over Wallonie</div>
+        <div class="kpi-number">+93%</div>
+        <div class="kpi-description">Brussels median (€ 550.000) is 93% above Wallonie (€ 285.000) — the widest regional affordability gap in Belgium.</div>
+      </div>
+
+      <div class="kpi-card green">
+        <div class="kpi-title">Renovation Value Uplift</div>
+        <div class="kpi-number">€ 168.000</div>
+        <div class="kpi-description">Median price gap between move-in-ready (AS_NEW) and properties needing renovation — a 61% premium for condition.</div>
+      </div>
+
+      <div class="kpi-card red">
+        <div class="kpi-title">Renovation ROI (Flanders)</div>
+        <div class="kpi-number">9,6%</div>
+        <div class="kpi-description">Projected return on a Flanders buy-renovate-sell strategy: purchase at € 289.000, renovate, resell at € 439.000 median.</div>
+        <div class="kpi-footnote">Assumes € 600/m² renovation cost over 150 m², plus 7,5% transaction costs. See methodology (p. 3) for full assumption log.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cover-map-area">
+    <div class="kpi-label-row" style="margin-top:0; margin-bottom:10px;">Median Price per m² by Region</div>
+    <div class="region-bars">
+      <div class="region-bar-wrap">
+        <div class="region-bar-label">Wallonie</div>
+        <div class="region-bar-track" style="height:50px;">
+          <div class="region-bar-fill" style="height:53%; background:var(--teal);"></div>
+        </div>
+        <div class="region-bar-val">€ 1.777/m²</div>
+      </div>
+      <div class="region-bar-wrap">
+        <div class="region-bar-label">Flanders</div>
+        <div class="region-bar-track" style="height:50px;">
+          <div class="region-bar-fill" style="height:71%; background:var(--gold);"></div>
+        </div>
+        <div class="region-bar-val">€ 2.375/m²</div>
+      </div>
+      <div class="region-bar-wrap">
+        <div class="region-bar-label">Brussels</div>
+        <div class="region-bar-track" style="height:50px;">
+          <div class="region-bar-fill" style="height:100%; background:#7ECFDA;"></div>
+        </div>
+        <div class="region-bar-val">€ 3.333/m²</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <div class="cover-footer-left">Prepared by: Ying · Data Analyst Portfolio</div>
+    <div class="cover-footer-right">Source: Immoweb · Belgium Real Estate Dataset</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGE 2 — EXECUTIVE SUMMARY
+════════════════════════════════════════════════════════ -->
+<div class="page summary-page">
+  <div class="page-header-bar">
+    <div>
+      <div class="page-header-title">Executive Summary</div>
+      <div class="page-header-sub">Belgium Property Valuation Intelligence</div>
+    </div>
+    <div class="page-num">02 / 03</div>
+  </div>
+  <div class="gold-rule"></div>
+
+  <div class="page-body">
+
+    <div class="section-eyebrow">Problem Statement</div>
+    <div class="section-title">Belgium's property market is deeply segmented —<br>and pricing reflects far more than size alone.</div>
+
+    <p>
+      The Belgian residential market comprises three legally distinct regions — Brussels, Flanders, and Wallonie — each with its own tax regime, demand dynamics, and price trajectory. A dataset of 19.980 listings scraped from Immoweb, Belgium's largest property portal, reveals that location, renovation state, and property type together explain the majority of price variation. Yet without a systematic valuation model, buyers and investors are forced to benchmark manually across thousands of listings.
+    </p>
+
+    <div class="highlight-box">
+      <p>
+        <strong style="color:var(--gold);">Central finding:</strong> A move-in-ready property in Brussels commands a median price of <strong style="color:#fff;">€ 550.000</strong> — 93% above a comparable property in Wallonie at <strong style="color:#fff;">€ 285.000</strong>. Within any single region, renovation condition alone drives a price gap of up to <strong style="color:#fff;">€ 168.000</strong>, creating a measurable arbitrage opportunity for investors willing to execute a buy-renovate-sell strategy.
+      </p>
+    </div>
+
+    <hr class="section-rule">
+    <div class="section-eyebrow">Key Findings</div>
+
+    <div class="finding-grid">
+      <div class="finding-card gold-top">
+        <div class="finding-label">Regional Divide</div>
+        <div class="finding-stat gold">€ 3.333</div>
+        <div class="finding-label" style="margin-top:4px;">Brussels median /m²</div>
+        <div class="finding-text">Brussels is 88% more expensive per m² than Wallonie (€ 1.777/m²) and 40% more than Flanders (€ 2.375/m²). The gap is structural, not cyclical.</div>
+      </div>
+
+      <div class="finding-card teal-top">
+        <div class="finding-label">Condition Premium</div>
+        <div class="finding-stat teal">61%</div>
+        <div class="finding-label" style="margin-top:4px;">AS_NEW premium over TO_RENOVATE</div>
+        <div class="finding-text">Move-in-ready properties (AS_NEW) median at € 443.000 vs. € 275.000 for those needing renovation — a consistent gap across all three regions.</div>
+      </div>
+
+      <div class="finding-card green-top">
+        <div class="finding-label">Villa Premium</div>
+        <div class="finding-stat green">82%</div>
+        <div class="finding-label" style="margin-top:4px;">Villa premium over standard house</div>
+        <div class="finding-text">Villas median at € 629.000 vs. standard houses at € 345.000. Luxury sub-segment commands a near-doubling of price for comparable locations.</div>
+      </div>
+
+      <div class="finding-card">
+        <div class="finding-label">Size as Value Driver</div>
+        <div class="finding-stat">58%</div>
+        <div class="finding-label" style="margin-top:4px;">Of price variance explained by living area</div>
+        <div class="finding-text">Living area is the single strongest driver of listing price — accounting for 58% of the model's explanatory power, ahead of region (8,8%) and property subtype (5,3%).</div>
+      </div>
+    </div>
+
+    <hr class="section-rule">
+    <div class="section-eyebrow">Strategic Recommendations</div>
+
+    <div class="rec-block gold-left">
+      <div class="rec-title">1. Prioritise Flanders for Buy-Renovate-Sell Investment</div>
+      <div class="rec-impact">▲ Projected ROI: 9,6% · Net profit: € 38.325 per transaction</div>
+      <p class="rec-text">
+        Flanders offers the most attractive renovation arbitrage: a TO_RENOVATE property median at € 289.000 rises to € 439.000 at AS_NEW condition — a € 150.000 gross uplift. After realistic renovation costs (€ 600/m² × 150 m² = € 90.000) and 7,5% transaction costs, the projected net return is 9,6%. Investors should target 3-bedroom houses in East and West Flanders where renovation supply is highest.
+      </p>
+    </div>
+
+    <div class="rec-block">
+      <div class="rec-title">2. Deploy Valuation Model to Flag Mispriced Listings</div>
+      <div class="rec-impact">▲ Impact: Systematic identification of under-priced opportunities at scale</div>
+      <p class="rec-text">
+        The Random Forest price estimator produces a <em>valuation gap</em> score for every listing — the difference between asking price and model-estimated fair value. Listings with a negative gap (asking below model estimate) represent potential under-priced opportunities. Agencies can integrate this score into their CRM to alert buyers automatically.
+      </p>
+    </div>
+
+    <div class="rec-block green-left">
+      <div class="rec-title">3. Expand Kitchen and Condition Data for Model Accuracy</div>
+      <div class="rec-impact">▲ Impact: Estimated 10–15% improvement in valuation precision</div>
+      <p class="rec-text">
+        Building condition is missing for 4.020 listings (26% of the original dataset) and living area for 1.636 listings due to scraper corruption. Collecting structured condition data at listing time would materially improve model accuracy — reducing the mean absolute prediction error below the current € 128.858 baseline.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>BELGIUM REAL ESTATE — PROPERTY VALUATION INTELLIGENCE</span>
+    <span>CONFIDENTIAL · PORTFOLIO USE ONLY</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGE 3 — METHODOLOGY
+════════════════════════════════════════════════════════ -->
+<div class="page method-page">
+  <div class="page-header-bar">
+    <div>
+      <div class="page-header-title">Methodology</div>
+      <div class="page-header-sub">Data Quality · ML Model · ROI Assumptions</div>
+    </div>
+    <div class="page-num">03 / 03</div>
+  </div>
+  <div class="gold-rule"></div>
+
+  <div class="method-body">
+
+    <!-- DATA QUALITY LOG -->
+    <div class="method-section-title">Data Quality Log</div>
+
+    <table class="dq-table">
+      <thead>
+        <tr>
+          <th style="width:18%;">Issue</th>
+          <th style="width:15%;">Scope</th>
+          <th style="width:22%;">Treatment</th>
+          <th>Business Rationale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Unnamed index columns</td>
+          <td>2 columns</td>
+          <td>Dropped</td>
+          <td>Export artefacts; carry no analytical value.</td>
+        </tr>
+        <tr>
+          <td>Duplicate URLs</td>
+          <td>2.821 rows</td>
+          <td>Deduplicated (keep first)</td>
+          <td>Same listing scraped twice; all duplicate prices were identical — confirmed before removal.</td>
+        </tr>
+        <tr>
+          <td>Corrupted living_area</td>
+          <td>1.636 rows</td>
+          <td>Set to NaN</td>
+          <td>Value '20.951.537.287.396.400' is a scraper artefact — impossible residential area. Cannot impute reliably.</td>
+        </tr>
+        <tr>
+          <td>surface_land = 'UNKNOWN'</td>
+          <td>2.385 rows + 1.683 NaN</td>
+          <td>Set to NaN; excluded from model</td>
+          <td>Apartments legally have no land; 'UNKNOWN' is not informative. Excluded from model features to avoid bias.</td>
+        </tr>
+        <tr>
+          <td>Missing price</td>
+          <td>498 rows</td>
+          <td>Excluded</td>
+          <td>Target variable; cannot model or impute without ground truth.</td>
+        </tr>
+        <tr>
+          <td>Missing living_area</td>
+          <td>Post-dedup NaN</td>
+          <td>Excluded</td>
+          <td>Strongest predictor; imputation would distort valuations.</td>
+        </tr>
+        <tr>
+          <td>Missing region</td>
+          <td>121 rows</td>
+          <td>Excluded</td>
+          <td>Region is second-strongest predictor; cannot assign market segment.</td>
+        </tr>
+        <tr>
+          <td>Price outliers</td>
+          <td>Below p1 (€ 89.000) or above p99 (€ 2.950.000)</td>
+          <td>Excluded (1% / 1%)</td>
+          <td>Extreme values represent non-standard properties (ruins, commercial) that would distort residential model.</td>
+        </tr>
+        <tr>
+          <td>living_area &gt; 2.000 m²</td>
+          <td>8 rows</td>
+          <td>Excluded</td>
+          <td>Implausible for standard residential listing; likely commercial or data entry error.</td>
+        </tr>
+        <tr>
+          <td>number_rooms &gt; 15</td>
+          <td>94 rows</td>
+          <td>Capped at 15</td>
+          <td>Values of 20+ are data entry errors; capping retains the observation while limiting distortion.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:8pt; color:var(--mid-grey); margin-bottom:16px;">
+      <strong>Final clean dataset:</strong> 15.254 listings · 3 regions · 11 provinces · 21 property subtypes
+    </p>
+
+    <!-- ML MODEL -->
+    <div class="method-section-title">Machine Learning Model</div>
+
+    <p style="font-size:8.5pt; margin-bottom:8px;">
+      <strong>Model purpose:</strong> This model estimates the fair market value of a residential property based on its location, size, type, and condition — so investors and agencies can identify over- and under-priced listings relative to market comparables.
+    </p>
+
+    <p style="font-size:8.5pt; margin-bottom:10px;">
+      <strong>Algorithm:</strong> Random Forest Regressor · 200 trees · random_state = 42 · 80/20 train-test split
+    </p>
+
+    <p style="font-size:8.5pt; margin-bottom:10px;">
+      <strong>Features (12):</strong> region, property_type, property_subtype, number_rooms, living_area, kitchen_score (0–3 ordinal), building_score (0–5 ordinal), has_garden, has_terrace, has_pool, has_fireplace, number_facades
+    </p>
+
+    <p style="font-size:8.5pt; margin-bottom:4px;"><strong>Performance metrics (test set):</strong></p>
+    <p style="font-size:8.5pt; margin-bottom:2px;">R² = 0,635 · MAE = € 128.858 · MAPE = 30,9%</p>
+    <p style="font-size:8pt; color:var(--mid-grey); margin-bottom:10px;">
+      R² of 0,635 means the model explains 63,5% of price variation using publicly observable listing features. Unobserved factors (micro-location, interior finish, views, floor level) account for the remainder — consistent with academic real estate valuation benchmarks. A 30,9% MAPE is expected when price ranges span € 89.000–€ 2.950.000 within the same dataset.
+    </p>
+
+    <!-- Feature importance bars -->
+    <p style="font-size:8pt; font-weight:600; margin-bottom:6px; color:var(--navy);">Feature Importance:</p>
+    <div class="fi-row"><span class="fi-label">living_area</span><div class="fi-bar-track"><div class="fi-bar-fill" style="width:100%; background:var(--gold);"></div></div><span class="fi-val">58,2%</span></div>
+    <div class="fi-row"><span class="fi-label">region</span><div class="fi-bar-track"><div class="fi-bar-fill" style="width:15%;"></div></div><span class="fi-val">8,8%</span></div>
+    <div class="fi-row"><span class="fi-label">property_subtype</span><div class="fi-bar-track"><div class="fi-bar-fill" style="width:9%;"></div></div><span class="fi-val">5,3%</span></div>
+    <div class="fi-row"><span class="fi-label">number_rooms</span><div class="fi-bar-track"><div class="fi-bar-fill" style="width:8.8%;"></div></div><span class="fi-val">5,1%</span></div>
+    <div class="fi-row"><span class="fi-label">kitchen_score</span><div class="fi-bar-track"><div class="fi-bar-fill" style="width:8.6%; background:var(--teal);"></div></div><span class="fi-val">5,0%</span></div>
+    <div class="fi-row"><span class="fi-label">building_score</span><div class="fi-bar-track"><div class="fi-bar-fill" style="width:8.6%; background:var(--teal);"></div></div><span class="fi-val">5,0%</span></div>
+    <div class="fi-row"><span class="fi-label">number_facades</span><div class="fi-bar-track"><div class="fi-bar-fill" style="width:8.2%;"></div></div><span class="fi-val">4,8%</span></div>
+    <div class="fi-row"><span class="fi-label">has_pool</span><div class="fi-bar-track"><div class="fi-bar-fill" style="width:4.8%;"></div></div><span class="fi-val">2,8%</span></div>
+
+    <!-- ROI MODEL -->
+    <div class="method-section-title">ROI Scenario Model — Assumption Log</div>
+
+    <p style="font-size:8.5pt; margin-bottom:8px;">
+      <strong>Scenario:</strong> Investor purchases a TO_RENOVATE property in Flanders, renovates to AS_NEW condition, and resells at median market price.
+    </p>
+
+    <p style="font-size:8pt; margin-bottom:4px;"><strong>Formula:</strong> ROI = (Resale Price − Total Investment) ÷ Total Investment × 100</p>
+    <p style="font-size:8pt; margin-bottom:2px;">Total Investment = Purchase Price + Renovation Cost + Transaction Costs</p>
+
+    <table class="dq-table" style="margin-top:8px;">
+      <thead>
+        <tr><th>Input</th><th>Value</th><th>Source</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Purchase price (TO_RENOVATE, Flanders median)</td><td>€ 289.000</td><td><span class="tag-from-data">FROM DATA</span></td></tr>
+        <tr><td>Resale price (AS_NEW, Flanders median)</td><td>€ 439.000</td><td><span class="tag-from-data">FROM DATA</span></td></tr>
+        <tr><td>Renovation cost per m²</td><td>€ 600</td><td><span class="tag-assumed">ASSUMED</span> Belgian market average, medium refurbishment</td></tr>
+        <tr><td>Renovation surface</td><td>150 m²</td><td><span class="tag-assumed">ASSUMED</span> Dataset median living area</td></tr>
+        <tr><td>Total renovation cost</td><td>€ 90.000</td><td>Derived: 150 m² × € 600</td></tr>
+        <tr><td>Transaction costs (notary, agent, taxes)</td><td>€ 21.675 (7,5%)</td><td><span class="tag-assumed">ASSUMED</span> Belgian avg. for existing properties</td></tr>
+        <tr><td>Total investment</td><td>€ 400.675</td><td>Sum of above</td></tr>
+        <tr><td>Net profit</td><td>€ 38.325</td><td>€ 439.000 − € 400.675</td></tr>
+        <tr><td>ROI</td><td>9,6%</td><td>€ 38.325 ÷ € 400.675</td></tr>
+      </tbody>
+    </table>
+
+    <div class="print-note">
+      <strong>Print settings:</strong> Margins → None · Scale → 100% · Background graphics → ON
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <span>BELGIUM REAL ESTATE — PROPERTY VALUATION INTELLIGENCE</span>
+    <span>NUMBER FORMAT: DUTCH LOCALE — PERIOD = THOUSANDS · COMMA = DECIMAL</span>
+  </div>
+</div>
+
+</body>
+</html>
