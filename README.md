@@ -1,170 +1,145 @@
-# Belgium Real Estate — Property Valuation Intelligence
+# Belgium Real Estate, Property Valuation Intelligence
 
-**End-to-end data analysis and machine learning project on 15.254 Belgian residential property listings from Immoweb.**
+End-to-end data analysis and machine learning on 15.254 Belgian residential listings from Immoweb: a fair-value model that flags over- and under-priced properties, a regional market study, and a print-ready executive report.
 
----
+## Project summary
 
-## Project Summary
+Belgian residential prices vary widely across regions, property types, and conditions, and buyers have no systematic way to tell a fair listing from an inflated one. This project builds a valuation model and a market analysis that let investors and agencies identify mispriced listings at scale.
 
-Belgian residential property is listed at widely varying prices across regions, property types, and conditions. This project delivers a data-driven valuation model and market analysis to help investors and agencies identify over- and under-priced listings systematically.
+**Core question:** which combination of region, property type, size, and condition drives price per square metre, and can a model predict fair market value well enough to flag mispriced listings?
 
-**Core business question:** Which combination of region, property type, size, and condition drives the highest price per square metre — and can we predict fair market value to flag mispriced listings?
-
----
-
-## Key Findings
+## Key findings
 
 | Metric | Value |
 |---|---|
-| National median listing price | € 353.750 |
-| Brussels median price per m² | € 3.333 |
+| National median listing price | EUR 353.750 |
+| Brussels median price per m2 | EUR 3.333 |
 | Brussels premium over Wallonie | +93% |
-| Renovation value uplift (AS_NEW vs TO_RENOVATE) | +61% · € 168.000 |
-| Buy-renovate-sell ROI (Flanders scenario) | 9,6% · € 38.325 net profit |
+| Renovation uplift (AS_NEW vs TO_RENOVATE) | +61% (EUR 168.000) |
+| Buy-renovate-sell ROI (Flanders scenario) | 9,6% (EUR 38.325 net profit) |
 
-**Living area is the strongest price driver**, explaining 58,2% of model variance — ahead of region (8,8%) and property subtype (5,3%).
+Living area is the strongest single price driver, explaining 58,2% of model variance, ahead of region (8,8%) and property subtype (5,3%).
 
----
+## Model purpose
 
-## Model Purpose
+The model estimates the fair market value of a residential property from its location, size, type, and condition, so investors and agencies can identify over- and under-priced listings relative to comparable properties.
 
-This model estimates the fair market value of a residential property based on its location, size, type, and condition — so investors and agencies can identify over- and under-priced listings relative to market comparables.
+## Repository structure
 
----
-
-## Repository Structure
-
-This repository uses a **flat folder structure** — all deliverable files are in the root, with only `screenshots/` as a subfolder. This is intentional so that recruiters and hiring managers see the full scope of work immediately without navigating subfolders.
+The repository is kept flat: every deliverable sits in the root, with screenshots in one subfolder. With six files, a flat layout lets a reviewer see the full scope on the repository landing page without clicking through folders.
 
 ```
-/
-├── belgium_re_pipeline.py             # Python pipeline: cleaning → EDA → ML → exports
-├── belgium_re_executive_report.html   # A4 executive report (3 pages, print-ready)
-├── belgium_re_powerbi_export.csv      # Cleaned, enriched Power BI-ready dataset
-├── belgium_re_feature_importance.csv  # ML feature importance scores
-├── README.md                          # This file
-├── .gitignore                         # Excludes raw data, pycache, OS files, .pbix
-└── screenshots/                       # Dashboard preview images
-    ├── 01_market_overview.png
-    ├── 02_regional_analysis.png
-    ├── 03_valuation_gap.png
-    └── 04_executive_report.png
+belgium_re_pipeline.py             Python pipeline: cleaning, EDA, ML, exports
+belgium_re_executive_report.html   A4 executive report (3 pages, print-ready)
+belgium_re_powerbi.pbix            Power BI dashboard (open in Power BI Desktop)
+belgium_re_powerbi_export.csv      Cleaned, enriched Power BI dataset (23 columns)
+belgium_re_feature_importance.csv  Random Forest feature importance scores
+screenshots/                       Dashboard and report preview images
+README.md
+.gitignore
 ```
 
----
+## Dashboard preview
 
-## Dashboard Preview
-
-### Page 1 — Market Overview
+### Page 1, Market Overview
 ![Market Overview](screenshots/01_market_overview.png)
 
-### Page 2 — Regional Analysis
+### Page 2, Regional Analysis
 ![Regional Analysis](screenshots/02_regional_analysis.png)
 
-### Page 3 — Valuation Gap — Opportunity Finder
+### Page 3, Valuation Gap (Opportunity Finder)
 ![Valuation Gap](screenshots/03_valuation_gap.png)
 
-### Executive Report — Cover Page
+### Executive Report, Cover Page
 ![Executive Report Cover](screenshots/04_executive_report.png)
-
----
 
 ## Deliverables
 
-### 1. Python Pipeline (`belgium_re_pipeline.py`)
-Full end-to-end pipeline covering data loading, quality auditing, EDA, feature engineering, Random Forest regression, ROI scenario model, and CSV exports. Runs from the folder containing the raw data file — no path changes required.
+### 1. Python pipeline (`belgium_re_pipeline.py`)
+Loads the raw Immoweb file, audits and cleans it, engineers features, trains a Random Forest regressor, runs the renovation ROI scenario, and writes both export CSVs. It runs from the folder that holds the raw data file, with no path edits required.
 
-**Prerequisites:**
 ```
-pip install pandas numpy scikit-learn
-```
-
-**Run:**
-```
+pip install pandas numpy scikit-learn openpyxl
 python belgium_re_pipeline.py
 ```
 
-### 2. Executive Report (`belgium_re_executive_report.html`)
-A4 print-ready, 3-page report with:
-- Page 1: 4 business-facing KPI tiles
-- Page 2: Executive summary with findings and recommendations (quantified impact for each)
-- Page 3: Data quality log, ML methodology, ROI assumption log
+### 2. Executive report (`belgium_re_executive_report.html`)
+A4 print-ready, three pages:
+- Page 1: four business-facing KPI tiles
+- Page 2: executive summary, findings, and recommendations with quantified impact
+- Page 3: data quality log, ML methodology, and a full ROI assumption log
 
-**Print settings:** Margins → None · Scale → 100% · Background graphics → ON
+Print settings: margins None, scale 100%, background graphics on.
 
-
-### 3. Power BI Export (`belgium_re_powerbi_export.csv`)
-Cleaned, feature-engineered dataset produced by the pipeline. This is **not raw data** — it includes derived columns:
+### 3. Power BI dashboard and export (`belgium_re_powerbi.pbix`, `belgium_re_powerbi_export.csv`)
+The `.pbix` opens directly in Power BI Desktop. It reads the export CSV, which is the cleaned, feature-engineered dataset produced by the pipeline, not raw data. Derived columns:
 
 | Column | Description |
 |---|---|
-| `price_per_sqm` | price ÷ living_area (€ per m²) |
-| `predicted_price` | Random Forest model estimate of fair market value |
-| `valuation_gap` | Actual price − predicted price (positive = overpriced signal) |
-| `valuation_gap_pct` | valuation_gap as % of predicted_price |
-| `kitchen_score` | Ordinal: 0 (not installed) → 3 (hyper equipped) |
-| `building_score` | Ordinal: 0 (to restore) → 5 (as new) |
+| `price_per_sqm` | price divided by living_area (EUR per m2) |
+| `predicted_price` | Random Forest estimate of fair market value |
+| `valuation_gap` | actual price minus predicted price (positive signals overpricing) |
+| `valuation_gap_pct` | valuation_gap as a percentage of predicted_price |
+| `kitchen_score` | ordinal, 0 (not installed) to 3 (hyper equipped) |
+| `building_score` | ordinal, 0 (to restore) to 5 (as new) |
 
-### 4. Feature Importance (`belgium_re_feature_importance.csv`)
-Random Forest feature importances for the 12 model inputs. Use as data source for a bar chart in the methodology section of the Power BI report.
+### 4. Feature importance (`belgium_re_feature_importance.csv`)
+Random Forest importances for the 12 model inputs, used as the source for the methodology bar chart.
 
----
-
-## Data Quality Summary
+## Data quality summary
 
 | Issue | Records | Treatment |
 |---|---|---|
-| Duplicate URLs (same listing scraped twice) | 2.821 | Deduplicated — prices identical |
-| Corrupted living_area values | 1.636 | Set to NaN — scraper artefact |
-| surface_land = 'UNKNOWN' | 2.385 | Set to NaN |
-| Missing price | 498 | Excluded — target variable |
-| Missing region | 121 | Excluded — key predictor |
-| Price outliers (below p1 or above p99) | ~305 | Excluded — non-residential |
-| living_area > 2.000 m² | 8 | Excluded — implausible residential |
+| Duplicate URLs (same listing scraped twice) | 2.821 | Deduplicated; prices identical, first kept |
+| Corrupted living_area values | 1.636 | Set to NaN; scraper artefact |
+| surface_land = 'UNKNOWN' | 2.385 | Set to NaN; informational only, not a model feature |
+| Missing price | 498 | Excluded; target variable |
+| Missing region | 121 | Excluded; key predictor |
+| Price outliers (below p1 or above p99) | ~305 | Excluded; non-residential |
+| living_area > 2.000 m2 | 8 | Excluded; implausible for residential |
+| number_rooms > 15 | 94 | Capped at 15; data entry errors |
 
-**Final clean dataset:** 15.254 listings · 3 regions · 11 provinces · 21 property subtypes
+**Final clean dataset:** 15.254 listings, 3 regions, 11 provinces, 21 property subtypes.
 
----
+## Model performance
 
-## ML Model Performance
+- Algorithm: Random Forest Regressor, 200 trees
+- Train/test split: 80/20 (random_state = 42)
+- R2: 0,635, MAE: EUR 128.858, MAPE: 30,9%
 
-- **Algorithm:** Random Forest Regressor · 200 trees
-- **Train / Test split:** 80% / 20% (random_state = 42)
-- **R²:** 0,635 · **MAE:** € 128.858 · **MAPE:** 30,9%
+An R2 of 0,635 means the model explains 63,5% of price variation from publicly observable listing attributes. Unobserved factors, such as micro-location quality, interior finish, views, and floor level, account for the rest. That is the expected ceiling for a model trained on listing metadata alone, without a physical inspection.
 
-R² of 0,635 means the model explains 63,5% of price variation using publicly observable listing attributes. Unobserved factors — micro-location quality, interior finish, views, floor level — account for the remainder. This is consistent with academic real estate valuation benchmarks where models trained solely on listing metadata typically achieve R² of 0,55–0,70.
+## ROI scenario model
 
----
-
-## ROI Scenario Model
-
-**Scenario:** Buy TO_RENOVATE in Flanders → renovate → sell at AS_NEW median.
+**Scenario:** buy a TO_RENOVATE property in Flanders, renovate it, and resell at the AS_NEW median.
 
 | Input | Value | Source |
 |---|---|---|
-| Purchase price | € 289.000 | From data (Flanders TO_RENOVATE median) |
-| Renovation cost | € 90.000 | Assumed: € 600/m² × 150 m² |
-| Transaction costs | € 21.675 | Assumed: 7,5% of purchase price |
-| Resale price | € 439.000 | From data (Flanders AS_NEW median) |
-| **Net profit** | **€ 38.325** | |
-| **ROI** | **9,6%** | |
+| Purchase price | EUR 289.000 | From data (Flanders TO_RENOVATE median) |
+| Renovation cost | EUR 90.000 | Assumed: EUR 600/m2 x 150 m2 |
+| Transaction costs | EUR 21.675 | Assumed: 7,5% of purchase price |
+| Total investment | EUR 400.675 | Sum of the above |
+| Resale price | EUR 439.000 | From data (Flanders AS_NEW median) |
+| **Net profit** | **EUR 38.325** | Resale minus total investment |
+| **ROI** | **9,6%** | Net profit divided by total investment |
 
----
+The pipeline, this README, and the executive report use the same assumptions, so all three reconcile to the same figures.
 
-## Methodology Notes
+## Methodology notes
 
-- **Data source:** Immoweb (Belgium's largest property portal) — publicly scraped listing data.
-- **Scope:** Residential properties only. Commercial, industrial, and mixed-use listings retained where labelled as HOUSE-type (APARTMENT_BLOCK, MIXED_USE_BUILDING) as they appear in the residential search results.
-- **Price definition:** Asking price as listed. No adjustment for negotiation margin.
-- **Number format:** Dutch locale — period (.) = thousands separator, comma (,) = decimal (e.g. € 353.750 · € 2.237,40/m²).
-- **Flat folder structure:** All files in the root of the repository. Only `screenshots/` is a subfolder. Recruiters see the complete deliverable set immediately on landing on the repo page.
-- **.gitignore:** Raw source data (`Belgium_real_estate_market.csv`), Python bytecode (`__pycache__/`), OS metadata (`.DS_Store`, `Thumbs.db`), virtual environments, Power BI working files (`.pbix`), and Excel lock files (`~$*.xlsx`) are all excluded from the repository.
+- **Data source:** Immoweb, Belgium's largest property portal, publicly scraped listing data.
+- **Scope:** residential properties. Mixed-use and apartment-block listings are retained where they appear in the residential search results under HOUSE-type categories.
+- **Price definition:** asking price as listed, with no adjustment for negotiation margin.
+- **Number format:** Dutch locale, a period (.) separates thousands and a comma (,) marks the decimal (for example EUR 353.750 and EUR 2.237,40/m2).
+- **Excluded from version control:** the raw source file, Python bytecode, virtual environments, notebooks, and OS metadata. See `.gitignore`.
 
----
+## About
 
-## About This Project
+**Ying Zhao**, Data Analyst, Antwerp, Belgium.
+Tools: Python (pandas, scikit-learn), Power BI, Excel, Git.
 
-**Author:** Ying — Data Analyst  
-**Tools:** Python (pandas, scikit-learn), Power BI Desktop, HTML/CSS  
-**Dataset:** Belgium Real Estate Market (Immoweb scrape)  
-**Portfolio focus:** End-to-end analytical thinking — from raw data to executive recommendations with quantified business impact.
+End-to-end analytical work, from raw data to executive recommendations with quantified business impact.
+
+- LinkedIn: [weiying-zhao](https://linkedin.com/in/weiying-zhao)
+- Email: [weiying.data@gmail.com](mailto:weiying.data@gmail.com)
+- GitHub: [Ying-Data](https://github.com/Ying-Data)
