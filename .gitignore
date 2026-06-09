@@ -1,5 +1,14 @@
-# Raw source data, never commit the original scrape
-Belgium_real_estate_market.csv
+# Secrets and environment
+.env
+.env.*
+
+# Data files are ignored, except the two published exports.
+# Never commit the original Immoweb scrape.
+*.csv
+!belgium_re_powerbi_export.csv
+!belgium_re_feature_importance.csv
+*.xlsx
+~$*.xls
 
 # Python cache and bytecode
 __pycache__/
@@ -33,6 +42,9 @@ desktop.ini
 .idea/
 *.sublime-project
 *.sublime-workspace
+
+# Node (for any tooling that pulls it in)
+node_modules/
 
 # Temp and log files
 *.log

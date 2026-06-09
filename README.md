@@ -14,7 +14,8 @@ Belgian residential prices vary widely across regions, property types, and condi
 |---|---|
 | National median listing price | EUR 353.750 |
 | Brussels median price per m2 | EUR 3.333 |
-| Brussels premium over Wallonie | +93% |
+| Brussels median price vs Wallonie | +93% (EUR 550.000 vs EUR 285.000) |
+| Brussels price per m2 vs Wallonie | +88% (EUR 3.333 vs EUR 1.777) |
 | Renovation uplift (AS_NEW vs TO_RENOVATE) | +61% (EUR 168.000) |
 | Buy-renovate-sell ROI (Flanders scenario) | 9,6% (EUR 38.325 net profit) |
 
@@ -99,7 +100,7 @@ Random Forest importances for the 12 model inputs, used as the source for the me
 | living_area > 2.000 m2 | 8 | Excluded; implausible for residential |
 | number_rooms > 15 | 94 | Capped at 15; data entry errors |
 
-**Final clean dataset:** 15.254 listings, 3 regions, 11 provinces, 21 property subtypes.
+**Final clean dataset:** 15.254 listings, 3 regions, 11 provinces, 23 property subtypes.
 
 ## Model performance
 
