@@ -1,6 +1,8 @@
 # Belgium Real Estate, Property Valuation Intelligence
 
-End-to-end data analysis and machine learning on 15.254 Belgian residential listings from Immoweb: a fair-value model that flags over- and under-priced properties, a regional market study, and a print-ready executive report.
+### A fast screen on what a Belgian listing should sell for
+
+A fair-value model over 15.254 Belgian residential listings from Immoweb that flags likely over- and under-priced homes, so an investor or agency can shortlist what is worth a closer look before anyone drives out for a viewing. It is a first-pass screening tool, not an appraisal, and the README is explicit about that limit. Includes a regional market study and a print-ready executive report.
 
 ## Project summary
 
@@ -136,11 +138,12 @@ The pipeline, this README, and the executive report use the same assumptions, so
 
 ## About
 
-**Ying Zhao**, Data Analyst, Antwerp, Belgium.
-Tools: Python (pandas, scikit-learn), Power BI, Excel, Git.
+**Ying Zhao**, BI &amp; Data Analyst for commercial and supply-chain teams. Antwerp on-site, Belgium remote.
 
-End-to-end analytical work, from raw data to executive recommendations with quantified business impact.
+Eight years on the commercial side (a EUR 2M client book at 95% retention) before I built the analytics, so I read data the way an owner reads a P&L: start from the decision, then build the SQL and the model that move it.
 
-- LinkedIn: [weiying-zhao](https://linkedin.com/in/weiying-zhao)
+Tools: Python (pandas, scikit-learn), SQL, Power BI, Excel, Git.
+
+- Portfolio: [ying-data.github.io/portfolio](https://ying-data.github.io/portfolio/)
+- LinkedIn: [weiying-zhao](https://www.linkedin.com/in/weiying-zhao/)
 - Email: [weiying.data@gmail.com](mailto:weiying.data@gmail.com)
-- GitHub: [Ying-Data](https://github.com/Ying-Data)
